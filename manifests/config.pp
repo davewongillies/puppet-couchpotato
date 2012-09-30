@@ -5,6 +5,7 @@ class couchpotato::config {
     $couchpotato_port = extlookup("couchpotato_port")
 
     file { "/usr/local/couchpotato-data":
+        ensure => directory,
         owner => 'couchpotato',
         group => 'couchpotato',
         recurse => 'true'
