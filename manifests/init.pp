@@ -21,6 +21,13 @@ class couchpotato( $source = 'true' ) {
         name => 'couchpotato',
         before => User["couchpotato"]
     }
+
+    file { '/home/couchpotato':
+        ensure => directory,
+        owner => 'couchpotato',
+        group => 'couchpotato',
+        mode => '0644',
+    }
     
     exec { 'download-couchpotato':
         command => "/usr/bin/git clone $url couchpotato",
