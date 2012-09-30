@@ -1,0 +1,75 @@
+#!/bin/bash
+#
+# sickbeard			Startup script for CouchPotato
+#
+# chkconfig: - 16 84
+# description: CouchPotato is an automatic NZB and torrent downloader
+# processname: couchpotato
+#
+### BEGIN INIT INFO
+# Provides: couchpotato
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: start and stop CouchPotato
+# Description: CouchPotato is an automatic NZB and torrent downloader
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Defaults
+PATH=/usr/bin:/usr/local/bin:/usr/local/sbin:/sbin:/bin:/usr/sbin
+PYTHON_LOCATION="/usr/local/bin/python2.7"
+
+# Daemon info
+DAEMON_USER="couchpotato"
+DAEMON_LOCATION="/usr/local/couchpotato/CouchPotato.py"
+DAEMON_ARGS="-q"
+DAEMON_URL="http://<%= ipaddress %>/couchpotato"
+RETVAL=0
+
+start() {
+	echo -n $"Starting CouchPotato: "
+	daemon --user=$DAEMON_USER $PYTHON_LOCATION $DAEMON_LOCATION $DAEMON_ARGS &
+    RETVAL=$?
+    return $RETVAL
+}
+
+stop() {
+	echo -n $"Stopping CouchPotato: "
+	PID=`ps -ef | grep CouchPotato.py | grep -v runuser | grep -v grep | grep -v bash | awk '{print $2}'`
+	echo $PID
+	kill -15 $PID
+	RETVAL=$?
+	return $RETVAL
+}
+
+case "$1" in
+   start)
+        start
+        RETVAL=$?
+        ;;
+   stop)
+        stop
+        RETVAL=$?
+        ;;
+   restart)
+        stop
+        start
+        RETVAL=$?
+        ;;
+   force-reload)
+        stop
+        start
+        RETVAL=$?
+        ;;
+   *)
+   echo "Usage:$0{start|stop|restart|force-reload}"
+   RETVAL=1
+esac
+exit $RETVAL
