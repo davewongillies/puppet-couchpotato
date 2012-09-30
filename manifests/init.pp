@@ -2,7 +2,7 @@ class couchpotato( $source = 'true' ) {
     
     $url = "https://github.com/RuudBurger/CouchPotatoServer.git"
     
-    include sickbeard::config
+    include couchpotato::config
     
     user { 'couchpotato':
         allowdupe => false,
