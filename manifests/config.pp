@@ -3,6 +3,7 @@ class couchpotato::config {
     $couchpotato_data = "/usr/local/couchpotato-data"
     $couchpotato_api_key = extlookup("couchpotato_api_key")
     $couchpotato_port = extlookup("couchpotato_port")
+    $nzbmatrix_username = extlookup("nzbmatrix_username")
 
     file { "/usr/local/couchpotato-data":
         ensure => directory,
