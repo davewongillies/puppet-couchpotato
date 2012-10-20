@@ -7,11 +7,11 @@ permission_folder = 0755
 host = <%= ipaddress %>
 url_base = couchpotato
 debug = 0
-launch_browser = True
+launch_browser = False
 api_key = <%= couchpotato_api_key %>
 port = <%= couchpotato_port %>
 permission_file = 0755
-show_wizard = 1
+show_wizard = 0
 
 [updater]
 notification = True
@@ -78,10 +78,10 @@ enabled = True
 enabled = 
 
 [nzbmatrix]
-username = 
+username = <%= nzbmatrix_username %>
 english_only = 1
-api_key = 
-enabled = 
+api_key = <%= nzbmatrix_apikey %>
+enabled = 1
 
 [nzbsrus]
 userid = 
@@ -139,12 +139,12 @@ manual = 0
 enabled = 0
 
 [sabnzbd]
-category = 
+category = Movies
 delete_failed = True
-enabled = 0
+enabled = 1
 manual = False
-host = localhost:8080
-api_key = 
+host = <%= sabnzbd_host %>/<%= sabnzbd_root %>
+api_key = <%= sabnzbd_apikey %>
 
 [transmission]
 username = 

@@ -7,14 +7,14 @@ class couchpotato::config {
     file { "/usr/local/couchpotato-data":
         ensure => directory,
         owner => 'couchpotato',
-        group => 'couchpotato',
+        group => 'automators',
         recurse => 'true'
     }
     
     file { "/usr/local/couchpotato-data/settings.conf":
         content => template('couchpotato/settings.conf.erb'),
         owner => 'couchpotato',
-        group => 'couchpotato',
+        group => 'automators',
         mode => '0644',
         require => File['/usr/local/couchpotato-data']
     }

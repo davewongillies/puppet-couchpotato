@@ -1,4 +1,4 @@
-class couchpotato( $source = 'true' ) {
+class couchpotato {
     
     $url = "https://github.com/RuudBurger/CouchPotatoServer.git"
     
@@ -9,24 +9,17 @@ class couchpotato( $source = 'true' ) {
         ensure => 'present',
         uid => '602',
         shell => '/bin/bash',
-        gid => '602',
+        gid => '700',
         home => '/home/couchpotato',
         password => '*',
-    }
-    
-    group { "couchpotato":
-        allowdupe => false,
-        ensure => present,
-        gid => 602,
-        name => 'couchpotato',
-        before => User["couchpotato"]
     }
 
     file { '/home/couchpotato':
         ensure => directory,
         owner => 'couchpotato',
-        group => 'couchpotato',
+        group => 'automators',
         mode => '0644',
+        recurse => 'true'
     }
     
     exec { 'download-couchpotato':
@@ -38,8 +31,9 @@ class couchpotato( $source = 'true' ) {
     file { "/usr/local/couchpotato":
         ensure => directory,
         owner => 'couchpotato',
-        group => 'couchpotato',
+        group => 'automators',
         mode => '0644',
+        recurse => 'true'
     }
 
     file { "/etc/init.d/couchpotato":
